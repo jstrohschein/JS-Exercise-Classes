@@ -250,10 +250,46 @@ const aang = new Lambdasian ({
 
 
 
-class Instructor {
+class Instructor extends Lambdasian{
+  constructor(teacher) {
+    
+    super(teacher);
 
-}
+    this.specialty = teacher.specialty;
+    this.favLanguage = teacher.favLanguage;
+    this.catchPhrase = teacher.catchPhrase;
 
+  }
+
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+
+  grade(student, subject){
+    console.log(`${student.name} receives a perfect score on ${subject}`);
+  }
+
+};
+
+const yoda = new Instructor ({
+  name: 'Yoda',
+  age: 823,
+  location: 'Dagobah',
+  specialty: 'Jedi Master',
+  favLanguage: 'Jedi Code',
+  catchPhrase: 'Fear leads to anger, anger leads to hate, hate leads to suffering',
+});
+
+
+//constructor test
+// console.log(yoda);
+
+//demo test
+// console.log(yoda.demo('Lightsaber Combat'));
+
+
+//grade test
+//yoda.grade(aang, 'Jedi mind tricks');
 
 
 
