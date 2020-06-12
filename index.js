@@ -284,6 +284,7 @@ const yoda = new Instructor ({
 //constructor test
 // console.log(yoda);
 
+
 //demo test
 // console.log(yoda.demo('Lightsaber Combat'));
 
@@ -315,10 +316,54 @@ const yoda = new Instructor ({
 
 
 
-class Student {
+class Student extends Lambdasian {
 
-}
+  constructor(padawan) {
 
+    super(padawan);
+
+    this.previousBackground = padawan.previousBackground;
+    this.className = padawan.className;
+    this.favSubjects = padawan.favSubjects;
+
+  }
+
+  listSubjects(){
+    return `Loving ${this.favSubjects[0]}, ${this.favSubjects[1]}, ${this.favSubjects[2]}!`;
+  }
+
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+
+};
+
+const katara = new Student({
+
+  name: 'Katara',
+  age: 14,
+  location: 'The Southern Water Tribe',
+  previousBackground: 'Farmer',
+  className: 'Water Bending',
+  favSubjects: ['Earth Bending', 'Fire Bending', 'Air Bending'],
+
+});
+
+//constructor test
+// console.log(katara);
+
+//listSubjects test
+// console.log(katara.listSubjects());
+
+//PRAssignment test
+//console.log(katara.PRAssignment('Water Bending'));
+
+//sprintChallenge test
+//console.log(katara.sprintChallenge('Earth Bending'));
 
 
 
@@ -342,13 +387,47 @@ class Student {
 
 
 
-class ProjectManager {
+class ProjectManager extends Instructor {
 
-}
+  constructor(theBoss) {
+
+    super(theBoss);
+
+    this.gradClassName = theBoss.gradClassName;
+    this.favInstructor = theBoss.favInstructor;
+    
+  }
+
+  standUp(slackChannel){
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  }
+
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
 
 
+};
 
+const anakin = new ProjectManager ({
+  name: 'Anakin',
+  age: 30,
+  location: 'Death Star',
+  specialty: 'Sith Lord',
+  favLanguage: 'Code of The Sith',
+  catchPhrase: 'Don\'t lecture me.',
+  gradClassName: 'Sith',
+  favInstructor: 'Darth Sidious',
+});
 
+//constructor test
+// console.log(anakin);
+
+//standUp Test
+// console.log(anakin.standUp('#StarWarsAndAvatarNerds'));
+
+//debugsCode test
+console.log(anakin.debugsCode(katara, 'Water Bending'));
 
 
 /*
