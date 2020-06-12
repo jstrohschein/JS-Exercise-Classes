@@ -269,6 +269,27 @@ class Instructor extends Lambdasian{
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
 
+  marks(student){
+    let num = Math.round(Math.random());
+    
+    if (num === 0){
+      student.grade += Math.floor((Math.random() * 10) + 1);
+      if (student.grade > 100){
+        student.grade = 100;
+      };
+    };
+
+    if (num === 1){
+      student.grade -= Math.floor((Math.random() * 10) + 1);
+      if (student.grade < 0){
+        student.grade = 0;
+      };
+    };
+
+    return `${student.name} now has a grade of ${student.grade}`
+    
+  }
+
 };
 
 const yoda = new Instructor ({
@@ -282,11 +303,11 @@ const yoda = new Instructor ({
 
 
 //constructor test
-// console.log(yoda);
+//console.log(yoda);
 
 
 //demo test
-// console.log(yoda.demo('Lightsaber Combat'));
+//console.log(yoda.demo('Lightsaber Combat'));
 
 
 //grade test
@@ -325,6 +346,7 @@ class Student extends Lambdasian {
     this.previousBackground = padawan.previousBackground;
     this.className = padawan.className;
     this.favSubjects = padawan.favSubjects;
+    this.grade = padawan.grade;
 
   }
 
@@ -340,6 +362,16 @@ class Student extends Lambdasian {
     return `${this.name} has begun sprint challenge on ${subject}`;
   }
 
+  graduate(){
+    if (this.grade > 70){
+      return `${this.name} can graduate. Congratulations young padawan`;
+    };
+
+    if (this.grade < 70){
+      return `${this.name} can\'t graduate. Try harder they must.`
+    };
+  }
+
 };
 
 const katara = new Student({
@@ -350,14 +382,14 @@ const katara = new Student({
   previousBackground: 'Farmer',
   className: 'Water Bending',
   favSubjects: ['Earth Bending', 'Fire Bending', 'Air Bending'],
-
+  grade: 100,
 });
 
 //constructor test
-// console.log(katara);
+//console.log(katara);
 
 //listSubjects test
-// console.log(katara.listSubjects());
+//console.log(katara.listSubjects());
 
 //PRAssignment test
 //console.log(katara.PRAssignment('Water Bending'));
@@ -421,13 +453,13 @@ const anakin = new ProjectManager ({
 });
 
 //constructor test
-// console.log(anakin);
+//console.log(anakin);
 
 //standUp Test
-// console.log(anakin.standUp('#StarWarsAndAvatarNerds'));
+//console.log(anakin.standUp('#StarWarsAndAvatarNerds'));
 
 //debugsCode test
-console.log(anakin.debugsCode(katara, 'Water Bending'));
+//console.log(anakin.debugsCode(katara, 'Water Bending'));
 
 
 /*
@@ -438,6 +470,16 @@ console.log(anakin.debugsCode(katara, 'Water Bending'));
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+//marks test ***FOR STRETCH***
+//console.log(yoda.marks(katara));
+
+//graduate test (pass)
+//console.log(katara.graduate());
+
+//graduate test (fail)
+//katara.grade = 69;
+//console.log(katara.graduate());
 
 
 
