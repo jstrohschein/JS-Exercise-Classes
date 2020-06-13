@@ -40,9 +40,68 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
+
+
+
+
+
 class Person {
 
-}
+  constructor(name, age) {
+
+    this.name = name;
+
+    this.age = age;
+
+    this.stomach = [];
+  }
+
+  eat(someFood) {
+    if (this.stomach.length < 10) {
+      return this.stomach.push(someFood);
+    }
+
+    else {
+     return console.log ('Stomach is full');
+    }
+  }
+
+  poop () {
+    this.stomach = [];
+  }
+
+  toString() {
+    return `${this.name}, ${this.age}`;
+  }
+
+};
+
+const me = new Person('Jared', 30);
+
+
+//eat test
+// console.log(me);
+// me.eat ('sushi');
+// console.log(me.stomach);
+
+
+//poop test
+// for (let i = 0; i < 11; i++) {
+//   me.eat ('sushi');
+// };
+// console.log(me.stomach);
+// me.poop();
+// console.log(me.stomach);
+
+
+//toString test
+// console.log(me.toString());
+
+
+
+
+
+
 
 /*
   TASK 2
@@ -58,9 +117,66 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
+
+
+
+
+
 class Car {
 
+  constructor(model, milesPerGallon) {
+
+    this.model = model;
+  
+    this.milesPerGallon = milesPerGallon;
+  
+    this.tank = 0;
+  
+    this.odometer = 0;
+  }
+  
+  fill(gallons) {
+      this.tank += gallons;
+  }
+  
+  drive(distance) {
+  
+    let fuel = this.tank - distance / this.milesPerGallon;
+  
+    if (fuel > 0){
+      this.odometer += distance;
+      this.tank = fuel;
+    }
+  
+    else {
+      this.odometer += this.milesPerGallon * this.tank;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles!`;
+    }
+      
+  }
+  
 }
+
+
+// car constructor test 
+// const whip = new Car('Mustang', 10);
+// console.log(whip);
+
+// fill test
+// whip.fill(25);
+// console.log(whip);
+
+// drive test w/o running out of fuel
+// whip.drive(10);
+// console.log(whip);
+
+// drive test running out of fuel
+// console.log(whip.drive(400));
+
+
+
+
 
 /*
   TASK 3
@@ -74,9 +190,46 @@ class Car {
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
+
+
+
+
+
 class Lambdasian {
 
-}
+  constructor(student) {
+    this.name = student.name;
+    this.age = student.age;
+    this.location = student.location;
+  }
+
+  speak(){
+    return `Hello, my name is ${this.name}, I am from ${this.location}`;
+  }
+
+};
+
+const aang = new Lambdasian ({
+  name: 'Aang',
+  age: 112,
+  location: 'The Southern Air Temple',
+});
+
+
+
+//constructor test
+//console.log(aang);
+
+//speak test
+//console.log(aang.speak());
+
+
+
+
+
+
+
+
 
 /*
   TASK 4
@@ -92,9 +245,77 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
 
-}
+
+
+
+
+class Instructor extends Lambdasian{
+  constructor(teacher) {
+    
+    super(teacher);
+
+    this.specialty = teacher.specialty;
+    this.favLanguage = teacher.favLanguage;
+    this.catchPhrase = teacher.catchPhrase;
+
+  }
+
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+
+  grade(student, subject){
+    console.log(`${student.name} receives a perfect score on ${subject}`);
+  }
+
+  marks(student){
+    let num = Math.round(Math.random());
+    
+    if (num === 0){
+      student.grade += Math.floor((Math.random() * 10) + 1);
+      if (student.grade > 100){
+        student.grade = 100;
+      };
+    };
+
+    if (num === 1){
+      student.grade -= Math.floor((Math.random() * 10) + 1);
+      if (student.grade < 0){
+        student.grade = 0;
+      };
+    };
+
+    return `${student.name} now has a grade of ${student.grade}`
+    
+  }
+
+};
+
+const yoda = new Instructor ({
+  name: 'Yoda',
+  age: 823,
+  location: 'Dagobah',
+  specialty: 'Jedi Master',
+  favLanguage: 'Jedi Code',
+  catchPhrase: 'Fear leads to anger, anger leads to hate, hate leads to suffering',
+});
+
+
+//constructor test
+//console.log(yoda);
+
+
+//demo test
+//console.log(yoda.demo('Lightsaber Combat'));
+
+
+//grade test
+//yoda.grade(aang, 'Jedi mind tricks');
+
+
+
+
 
 /*
   TASK 5
@@ -111,9 +332,74 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
 
-}
+
+
+
+
+class Student extends Lambdasian {
+
+  constructor(padawan) {
+
+    super(padawan);
+
+    this.previousBackground = padawan.previousBackground;
+    this.className = padawan.className;
+    this.favSubjects = padawan.favSubjects;
+    this.grade = padawan.grade;
+
+  }
+
+  listSubjects(){
+    return `Loving ${this.favSubjects[0]}, ${this.favSubjects[1]}, ${this.favSubjects[2]}!`;
+  }
+
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+
+  graduate(){
+    if (this.grade > 70){
+      return `${this.name} can graduate. Congratulations young padawan`;
+    };
+
+    if (this.grade < 70){
+      return `${this.name} can\'t graduate. Try harder they must.`
+    };
+  }
+
+};
+
+const katara = new Student({
+
+  name: 'Katara',
+  age: 14,
+  location: 'The Southern Water Tribe',
+  previousBackground: 'Farmer',
+  className: 'Water Bending',
+  favSubjects: ['Earth Bending', 'Fire Bending', 'Air Bending'],
+  grade: 100,
+});
+
+//constructor test
+//console.log(katara);
+
+//listSubjects test
+//console.log(katara.listSubjects());
+
+//PRAssignment test
+//console.log(katara.PRAssignment('Water Bending'));
+
+//sprintChallenge test
+//console.log(katara.sprintChallenge('Earth Bending'));
+
+
+
+
 
 /*
   TASK 6
@@ -128,9 +414,53 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
 
-}
+
+
+
+
+class ProjectManager extends Instructor {
+
+  constructor(theBoss) {
+
+    super(theBoss);
+
+    this.gradClassName = theBoss.gradClassName;
+    this.favInstructor = theBoss.favInstructor;
+    
+  }
+
+  standUp(slackChannel){
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  }
+
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
+
+
+};
+
+const anakin = new ProjectManager ({
+  name: 'Anakin',
+  age: 30,
+  location: 'Death Star',
+  specialty: 'Sith Lord',
+  favLanguage: 'Code of The Sith',
+  catchPhrase: 'Don\'t lecture me.',
+  gradClassName: 'Sith',
+  favInstructor: 'Darth Sidious',
+});
+
+//constructor test
+//console.log(anakin);
+
+//standUp Test
+//console.log(anakin.standUp('#StarWarsAndAvatarNerds'));
+
+//debugsCode test
+//console.log(anakin.debugsCode(katara, 'Water Bending'));
+
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -140,6 +470,25 @@ class ProjectManager {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+//marks test ***FOR STRETCH***
+//console.log(yoda.marks(katara));
+
+//graduate test (pass)
+//console.log(katara.graduate());
+
+//graduate test (fail)
+//katara.grade = 69;
+//console.log(katara.graduate());
+
+
+
+
+
+
+
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
